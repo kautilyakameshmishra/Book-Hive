@@ -12,14 +12,14 @@ app.use(express.json());
 
 //Middleware for handling CORS POLICY
 // option 1
-//app.use(Cors());
+app.use(Cors());
 // option 2 custom option
-app.use(
-    Cors({
-        origin: 'http://localhost:5555',
-        methods: ['GET', 'POST', 'PUT', 'DELETE'],
-        allowedHeaders: ['Content-Tyoe'],
-}));
+// app.use(
+//     Cors({
+//         origin: 'http://localhost:5555',
+//         methods: ['GET', 'POST', 'PUT', 'DELETE'],
+//         allowedHeaders: ['Content-Tyoe'],
+// }));
 
 app.get('/', (request, response) => {
     console.log(request);
@@ -29,13 +29,13 @@ app.get('/', (request, response) => {
 app.use('/books', booksRoute);
 
 mongoose.connect(mongoDBURL)
-.then(()  => {
-    console.log('App is connected to database');
-    app.listen(PORT, () => {
-        console.log('App is listening to port: ${PORT}');
+    .then(() => {
+        console.log('App is connected to database');
+        app.listen(PORT, () => {
+            console.log('App is listening to port: ${PORT}');
+        });
+    })
+    .catch((error) => {
+        console.log(error);
     });
-})
-.catch((error)  => {
-    console.log(error);
-});
 
